@@ -1,0 +1,24 @@
+{
+  "crons": [
+    {
+      "path": "/api/picks/publish",
+      "schedule": "0 8 * * *"
+    },
+    {
+      "path": "/api/picks/settle",
+      "schedule": "0 3 * * *"
+    },
+    {
+      "path": "/api/sync-fixtures",
+      "schedule": "0 6 * * *"
+    },
+    {
+      "path": "/api/sync-fixtures",
+      "schedule": "0 12 * * *"
+    },
+    {
+      "path": "/api/sync-fixtures",
+      "schedule": "0 18 * * *"
+    }
+  ]
+}

@@ -39,21 +39,7 @@ interface ApiFootballResponse {
   response: ApiFootballFixture[]
 }
 
-function mapStatus(short: string): "scheduled" | "live" | "finished" | "postponed" | "cancelled" {
-  if (["1H", "2H", "HT", "ET", "BT", "P", "INT", "LIVE"].includes(short)) {
-    return "live"
-  }
-  if (["FT", "AET", "PEN"].includes(short)) {
-    return "finished"
-  }
-  if (["PST"].includes(short)) {
-    return "postponed"
-  }
-  if (["CANC", "ABD", "AWD", "WO"].includes(short)) {
-    return "cancelled"
-  }
-  return "scheduled"
-}
+export type ApiFixture = ApiFootballFixture
 
 export async function fetchFixturesByDate(date: string) {
   const apiKey = process.env.SPORTS_API_KEY
@@ -69,20 +55,5 @@ export async function fetchFixturesByDate(date: string) {
     },
   })
 
-  return data.response.map((item) => ({
-    external_id: String(item.fixture.id),
-    slug: `match-${item.fixture.id}`,
-    kickoff_at: item.fixture.date,
-    status: mapStatus(item.fixture.status.short),
-    competition_name: item.league.name,
-    competition_country: item.league.country ?? null,
-    competition_logo_url: item.league.logo ?? null,
-    home_team_name: item.teams.home.name,
-    home_team_logo_url: item.teams.home.logo ?? null,
-    away_team_name: item.teams.away.name,
-    away_team_logo_url: item.teams.away.logo ?? null,
-    score_home: item.goals.home,
-    score_away: item.goals.away,
-    venue: item.fixture.venue?.name ?? null,
-  }))
+  return data.response
 }

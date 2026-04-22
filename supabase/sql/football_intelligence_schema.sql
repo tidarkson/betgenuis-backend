@@ -109,6 +109,13 @@ CREATE INDEX IF NOT EXISTS idx_content_queue_scheduled ON content_queue(schedule
 CREATE INDEX IF NOT EXISTS idx_click_events_match ON click_events(match_id);
 CREATE INDEX IF NOT EXISTS idx_click_events_created ON click_events(created_at);
 
+CREATE OR REPLACE FUNCTION increment_click_count(link_id UUID)
+RETURNS void AS $$
+  UPDATE stream_links
+  SET click_count = click_count + 1
+  WHERE id = link_id;
+$$ LANGUAGE sql;
+
 -- ROW LEVEL SECURITY (read-only for public where required)
 ALTER TABLE competitions ENABLE ROW LEVEL SECURITY;
 ALTER TABLE teams ENABLE ROW LEVEL SECURITY;

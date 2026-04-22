@@ -21,7 +21,7 @@ export interface StreamLink {
   id: string
   matchId: string
   sourceName: string
-  sourceUrl: string
+  url: string
   isActive: boolean
   language?: string
   quality?: string
@@ -31,15 +31,15 @@ export interface StreamLink {
 
 export interface Match {
   id: string
-  externalId?: string
-  slug: string
-  kickoffAt: string
+  apiId?: number
+  kickoffTime: string
   status: MatchStatus
   competitionId: string
   homeTeamId: string
   awayTeamId: string
-  scoreHome?: number
-  scoreAway?: number
+  homeScore?: number
+  awayScore?: number
+  minute?: number
   venue?: string
   competition?: Competition
   homeTeam?: Team
